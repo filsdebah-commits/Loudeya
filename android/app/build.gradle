@@ -1,8 +1,9 @@
 plugins {
-    id "com.android.application"
-    id "dev.flutter.flutter-gradle-plugin"
-    id "org.jetbrains.kotlin.android"
+    id "com.android.application" version "8.2.1" apply false // Version stable recommandée
+    id "org.jetbrains.kotlin.android" version "1.9.10" apply false
+    id "dev.flutter.flutter-gradle-plugin" version "1.0.0" apply false
 }
+
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
@@ -25,39 +26,34 @@ apply plugin: 'kotlin-android'
 
 
 android {
-    namespace "com.loudeya.app"
-    compileSdkVersion 34
-    ndkVersion flutter.ndkVersion
+    // Utilise les variables définies par Flutter automatiquement
+    namespace "com.exemple.tonprojet" // Remplace par ton vrai package name
+    compileSdk flutter.compileSdkVersion
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
-    }
-
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
+        jvmTarget = '17'
     }
 
     defaultConfig {
-        applicationId "com.loudeya.app"
-        minSdkVersion 21
-        targetSdkVersion 34
+        applicationId "com.exemple.tonprojet" // Ton package name
+        minSdk flutter.minSdkVersion
+        targetSdk flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
 
     buildTypes {
         release {
-            signingConfig signingConfigs.debug
-            minifyEnabled false
-            shrinkResources false
+            signingConfig signingConfigs.debug // Ou ta config de production
         }
     }
 }
+
 
 flutter {
     source '../..'
